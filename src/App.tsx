@@ -9,6 +9,7 @@ import { AddUserPage } from './pages/Add User Page/AddUserPage';
 import { EditUserPage } from './pages/Edit User Page/EditUserPage';
 
 
+
 let demoClass1: MoveClass = new MoveClass(1,'Kathleen Carm','dance class - Bada Lee, Smoker','https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK','intermediate');
 let demoClass2: MoveClass = new MoveClass(2, 'LEIA','dance class - Aespa, Drama','https://youtu.be/A_bEGrPlAOo?si=bIksDl1w-5uevLIZ', 'beginner');
 let demoClass3: MoveClass = new MoveClass(3, 'Ellen','dance class - BlackPink, Shut Down','https://youtu.be/-Y_n2RxTXyc?si=Edj9QeiDGoEhGgRc', 'intermediate');

@@ -39,7 +39,7 @@ function handleOnClick(
 }
 
 export function AddUserPage() {
-    document.title = 'Add user';
+    document.title = 'Add class';
 
     const idInput = useRef<HTMLInputElement>(null);
     const instructorNameInput = useRef<HTMLInputElement>(null);
@@ -62,7 +62,7 @@ export function AddUserPage() {
 
     return (
         <Layout>
-            <div className='main-page-container'>
+            <div className='main-page-container' data-testid='main-page-container'>
                 <div className='main-title'>Add user</div>
 
                 <UserForm

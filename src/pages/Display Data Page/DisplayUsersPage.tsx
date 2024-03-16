@@ -8,7 +8,7 @@ import { UsersContext } from '../../contexts/UsersContext';
 import './DisplayUsersPage.css';
 
 export function DisplayUsersPage() {
-    document.title = 'Users dashboard!';
+    document.title = 'ChoreoVerse';
 
     const usersContext = useContext(UsersContext)!;
 
@@ -17,8 +17,8 @@ export function DisplayUsersPage() {
 
     return (
         <Layout>
-            <div className='main-page-container'>
-                <div className='users-list'>
+            <div className='main-page-container' data-testid='main-page-container'>
+                <div className='users-list' data-testid='users-list'>
                     {usersArray.map((user) => (
                         <UserCard givenUser={user} removeMethod={removeMethod} key={user.getId()} />
                     ))}

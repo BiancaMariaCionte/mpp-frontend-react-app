@@ -4,7 +4,8 @@ import "./Layout.css";
 
 export function Layout({ children }: any) {
   return (
-    <div className="layout-container">
+    <div className="layout-container"
+         data-testid='layout-test-id'>
       <Header />
 
       {children}

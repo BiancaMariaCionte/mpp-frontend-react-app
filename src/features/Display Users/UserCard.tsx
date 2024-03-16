@@ -37,11 +37,14 @@ export function UserCard({ givenUser, removeMethod }: UserCardPropsType) {
 
     return (
         <div className='card' data-testid='user-card' onClick={handleCardOnClick}>
-            <button className='remove-button' onClick={handleRemoveButtonClick}>
+            <button className='remove-button' 
+                    data-testid='remove-button'
+                    onClick={handleRemoveButtonClick}>
                 X
             </button>
 
-            <div className='card-info'>
+            <div className='card-info'
+                    data-testid='card-info'>
                 {/* Thumbnail */}
                 {thumbnailUrl && (
                     <div className="thumbnail-container">
@@ -61,7 +64,7 @@ export function UserCard({ givenUser, removeMethod }: UserCardPropsType) {
             {/* Confirmation modal */}
             {showConfirmation && (
                 <div className="confirmation-modal">
-                    <p>Are you sure you want to delete this user?</p>
+                    <p>Are you sure you want to delete this dance class?</p>
                     <button onClick={handleConfirmDelete}>Yes</button>
                     <button onClick={handleCancelDelete}>No</button>
                 </div>
