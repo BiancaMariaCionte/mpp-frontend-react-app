@@ -1,0 +1,84 @@
+.card {
+    width: px;
+    height: 170px;
+    padding: 10px;
+    margin: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    background: linear-gradient(to bottom right, #AB92A7, #C9AEC9); /* Baby purple gradient */
+    border: 1px solid #dcdcdc;
+    border-radius: 8px; /* Rounded corners */
+    overflow: hidden; /* Prevent content overflow */
+    position: relative; /* Positioning for shadow */
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: radial-gradient(circle at top left, #B4A0CB, transparent 40%), /* Light purple paint */
+                      radial-gradient(circle at top right, #A4C3E7, transparent 40%); /* Light blue paint */
+    pointer-events: none; /* Allow interaction with content behind */
+}
+
+.card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    color: black; /* Text color */
+    font-size: 12pt;
+    font-weight: 550;
+}
+
+.user-id, .first-name, .last-name {
+    padding: 0;
+    margin: 0;
+
+    line-height: 1;
+}
+
+.picture {
+    width: 100px;
+    height: 100px;
+}
+
+.picture > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    margin-top: 0.5em;
+}
+
+.user-info {
+    margin-bottom: 1em;
+}
+
+.remove-button {
+    align-self: flex-end;
+    padding: 0;
+    margin: 0;
+
+    background: none;
+    border: 0px;
+
+    font-weight: bold;
+    font-size: 12pt;
+    color: #566573;
+
+    transition: all 0.3s ease;
+}
+
+.remove-button:hover {
+    cursor: pointer;
+    color: black;
+}

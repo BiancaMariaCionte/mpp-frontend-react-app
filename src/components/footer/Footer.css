@@ -1,0 +1,18 @@
+.footer {
+    width: 100%;
+    font-weight: normal; /* Remove bold font weight */
+    margin: 0;
+    align-self: flex-start;
+    border-top: 1px solid #dcdcdc;
+}
+
+.inner-text {
+    padding: 10px;
+    line-height: 1;
+}
+
+.star {
+    color: #FFD700; /* Color of the star */
+    font-size: 1.2em; /* Adjust size of the star */
+    margin-right: 5px; /* Add margin to separate star from text */
+}
