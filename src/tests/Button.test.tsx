@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Button } from '../components/button/Button';
 
+
 test('test button rendering without extra class', () => {
     render(<Button type='button' buttonMessage='Test button' />);
 

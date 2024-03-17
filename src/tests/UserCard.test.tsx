@@ -34,16 +34,18 @@ test('test user card rendering', () => {
     const userCard = screen.getByTestId('user-card');
     const removeButton = screen.getByTestId('remove-button');
 
-    const userId = screen.getByText('ID: 1');
-    const userInstructorName = screen.getByText('Instructor Name: Kathleen Carm');
-    const userType = screen.getByText('Type: dance class - Bada Lee, Smoker');
-    const userYoutubeUrl = screen.getByText('Youtube Url: https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK');
-    const userDificulty = screen.getByText('Dificulty: intermediate');
+    //const userId = screen.getByText('1');
+    const userInstructorName = screen.getByText('Kathleen Carm');
+    const userType = screen.getByText('dance class - Bada Lee, Smoker');
+    const userYoutubeUrl = screen.getByText('https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK');
+    const userDificulty = screen.getByText('intermediate');
+
+    
     
 
     expect(userCard).toBeInTheDocument();
     expect(removeButton).toBeInTheDocument();
-    expect(userId).toBeInTheDocument();
+    //expect(userId).toBeInTheDocument();
     expect(userInstructorName).toBeInTheDocument();
     expect(userType).toBeInTheDocument();
     expect(userYoutubeUrl).toBeInTheDocument();

@@ -1,4 +1,5 @@
 export class MoveClass{
+    [x: string]: any;
     private id: number;
     private instructorName: string;
     private type: string; //danceClass or fitnessClass

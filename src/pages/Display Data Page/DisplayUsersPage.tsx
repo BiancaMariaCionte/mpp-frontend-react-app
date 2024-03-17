@@ -11,13 +11,14 @@ export function DisplayUsersPage() {
     document.title = 'ChoreoVerse';
 
     const usersContext = useContext(UsersContext)!;
+    //he ! operator asserts that the value returned by useContext(UsersContext) is not null or undefined
 
-    let usersArray: MoveClass[] = usersContext.users;
-    const removeMethod = usersContext.removeUser;
+    let usersArray: MoveClass[] = usersContext.moveClasses;
+    const removeMethod = usersContext.removeMoveClass;
 
     return (
         <Layout>
-            <div className='main-page-container' data-testid='main-page-container'>
+            <div className='main-page-container'>
                 <div className='users-list' data-testid='users-list'>
                     {usersArray.map((user) => (
                         <UserCard givenUser={user} removeMethod={removeMethod} key={user.getId()} />

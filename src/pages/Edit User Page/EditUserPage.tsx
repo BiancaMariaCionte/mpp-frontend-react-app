@@ -53,12 +53,12 @@ export function EditUserPage() {
         return;
     }
 
-    const givenUser = usersContext.users.find((user: MoveClass) => user.getId() === parseInt(userId));
+    const givenUser = usersContext.moveClasses.find((user: MoveClass) => user.getId() === parseInt(userId));
     const handleOnClickWrapper = () => {
         try {
             const newUser = handleOnClick(idInput, instructorNameInput, typeInput, youtubeUrlInput, dificultyInput);
-            usersContext.removeUser(newUser.getId());
-            usersContext.addUser(newUser);
+            usersContext.removeMoveClass(newUser.getId());
+            usersContext.addMoveClass(newUser);
 
             navigate('/');
         } catch (error) {

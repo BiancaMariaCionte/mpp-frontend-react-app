@@ -16,26 +16,39 @@ let demoClass3: MoveClass = new MoveClass(3, 'Ellen','dance class - BlackPink, S
 let demoClass4: MoveClass = new MoveClass(4, 'LEIA','dance class- LESSERAFIM, Smart','https://youtu.be/v4EI6cNJvTs?si=ltQFVHtCQXOTObbl', 'beginner');
 let demoClass5: MoveClass = new MoveClass(5, 'Aloha','dance class- LESSERAFIM, Easy','https://youtu.be/hG96IxiWnzs?si=OOdEmwAnjpuZqbt9', 'intermediate');
 let demoClass6: MoveClass = new MoveClass(6, 'Kathleen Carm','dance class- NMIX, Dash','https://youtu.be/1wpE4ZJWQ5Q?si=A0XOzsh7uV93TUxD', 'advanced');
-
+let demoClass7: MoveClass = new MoveClass(7, 'Kathleen Carm','dance class- Stray Kids, LALALALA','https://youtu.be/euaGRK-ZylM?si=ZWkG1b9vEU6IVXwK', 'intermediate');
+let demoClass8: MoveClass = new MoveClass(8, 'Kathleen Carm','dance class- TXT, Chasing that feeling','https://youtu.be/KpM2r-OYWWQ?si=a_RNIogtcb4MnE56', 'intermediate');
 
 
 function App() {
-    let [users, setUsers] = useState<MoveClass[]>([demoClass1,demoClass2,demoClass3,demoClass4,demoClass5,demoClass6]);
+    let [moveClasses, setMoveClasses] = useState<MoveClass[]>([demoClass1,demoClass2,demoClass3,demoClass4,demoClass5,demoClass6,demoClass7,demoClass8]);
 
-    const addUser = (newUser: MoveClass) => {
-        setUsers((prevState: MoveClass[]) => [...prevState, newUser]);
+    const addMoveClass = (newMoveClass: MoveClass) => {
+        setMoveClasses((prevState: MoveClass[]) => [...prevState, newMoveClass]);
+        // The function spreads the prevState into a new array using the spread operator (...prevState)
+        // This creates a shallow copy of the previous state array
+        // newUser parameter is then appended to the end of this new array using array concatenation
+        // setUsers function is called to update the state variable "users"
     };
 
-    const removeUser = (userId: number) => {
-        setUsers((prevState: MoveClass[]) => prevState.filter((user) => user.getId() !== userId));
+    // !! By passing a function to setUsers, React ensures that the state update is based on the most up-to-date state value.
+    //    This helps especially in scenarios where multiple state updates may occur in rapid succession.
+
+    // !!  setUsers function is used to update the state in an "immutable" way by creating a new array with the added user
+
+    const removeMoveClass = (userId: number) => {
+        setMoveClasses((prevState: MoveClass[]) => prevState.filter((user) => user.getId() !== userId));
+        // prevState.filter() is used to create a new array containing only the elements of the prevState array that meet the specified condition
+        // the state is updated immutably by returning a new array that contains only the users that were not removed
+        // This ensures that the original users array remains unchanged
     };
 
-    useEffect(() => {
-        console.log(users);
+    useEffect(() => { //useEffect hook <- logs the current state of users to the console whenever the component re-renders
+        console.log(moveClasses);
     });
 
     return (
-        <UsersContextProvider userContext={{ users, addUser, removeUser }}>
+        <UsersContextProvider userContext={{ moveClasses, addMoveClass, removeMoveClass }}>
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<DisplayUsersPage />} />

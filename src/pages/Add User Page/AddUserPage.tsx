@@ -20,7 +20,7 @@ function handleOnClick(
     if (!idInput.current || !instructorNameInput.current || !typeInput.current || !youtubeUrlInput.current || !dificultyInput.current)
         throw new Error('Inputs references are null');
 
-    if (
+    if ( //validate that all input fields have values
         !idInput.current.value ||
         !instructorNameInput.current.value ||
         !typeInput.current.value ||
@@ -29,6 +29,7 @@ function handleOnClick(
     )
         throw new Error('You must provide values for each field!');
 
+        // extract the values from the input fields
     const userId: number = parseInt(idInput.current.value),
         userInstructorName: string = instructorNameInput.current.value,
         userType: string = typeInput.current.value,
@@ -50,11 +51,11 @@ export function AddUserPage() {
     const navigate = useNavigate();
     const usersContext = useContext(UsersContext)!;
 
-    const handleOnClickWrapper = () => {
+    const handleOnClickWrapper = () => { //after we press the button Add class we return one page back (to the main page)
         try {
             const inputUser = handleOnClick(idInput, instructorNameInput, typeInput, youtubeUrlInput,dificultyInput );
-            usersContext.addUser(inputUser);
-            navigate('/');
+            usersContext.addMoveClass(inputUser);
+            navigate('/'); //because of this
         } catch (error) {
             alert(error);
         }
