@@ -12,7 +12,7 @@ body {
     background: #f5f0ff; /* You can adjust the color code to your preference */
 
     /* Include the background image of faded white stars */
-    background-image: url('C:\Users\Bianca\react-frontend-app\src\images\ashley-whitlatch-36aGnv29Ss0-unsplash.jpg'); /* Update the path to your background image */
+    background-image: url('C:\Users\Bianca\react-frontend-app\src\images\blue-single-plain-solid-color-one-colour-3000x2000-c-3a2b75-f-24.png'); /* Update the path to your background image */
     background-size: cover;
 }
 

@@ -7,7 +7,7 @@ import './FormEntry.css';
 //  <HTMLInputElement> specifies the type of the ref that will be forwarded. In this case, it's a ref to an HTML input element
 // <FormEntryProps> specifies the type of props that FormEntry accepts.
 
-const FormEntry = forwardRef<HTMLInputElement, FormEntryProps>((props, ref) => {
+const FormEntry = forwardRef<HTMLInputElement, FormEntryProps>((props, ref) => { // It creates a React component that forwards a ref to one of its children
     return (
         <div className='form-entry' data-testid='form-entry'>
             <label className='form-label' htmlFor={props.label}>

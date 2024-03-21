@@ -6,6 +6,7 @@ import { MoveClass } from '../../models/MoveClass';
 
 import { useContext, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Avatar } from '@mui/material';
 
 function handleOnClick(
     idInput: React.RefObject<HTMLInputElement>,
@@ -80,6 +81,7 @@ export function EditUserPage() {
 
                 <Button type='submit' buttonMessage='Edit Class' onClick={handleOnClickWrapper} />
             </div>
+            <Avatar alt="User Photo" src="src\images\0700368C-1803-48E7-9A17-E72F4CDAC037.JPG" />
         </Layout>
     );
 }

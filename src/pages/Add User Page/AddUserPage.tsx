@@ -20,6 +20,8 @@ function handleOnClick(
     if (!idInput.current || !instructorNameInput.current || !typeInput.current || !youtubeUrlInput.current || !dificultyInput.current)
         throw new Error('Inputs references are null');
 
+        // we can access the current value of that ref through the "ref.current" property
+        // the value is mutable
     if ( //validate that all input fields have values
         !idInput.current.value ||
         !instructorNameInput.current.value ||
@@ -48,8 +50,12 @@ export function AddUserPage() {
     const youtubeUrlInput = useRef<HTMLInputElement>(null);
     const dificultyInput = useRef<HTMLInputElement>(null);
 
+    // Refs provide a way to access and interact with DOM elements directly
+    // Refs are particularly useful when you need to imperatively modify a DOM element or access its properties
+
     const navigate = useNavigate();
     const usersContext = useContext(UsersContext)!;
+    //  you can only call a Hook immediately inside a React component (not inside loops or conditions)
 
     const handleOnClickWrapper = () => { //after we press the button Add class we return one page back (to the main page)
         try {
@@ -67,6 +73,7 @@ export function AddUserPage() {
                 <div className='main-title'>Add user</div>
 
                 <UserForm
+                // The refs are passed to the UserForm component to enable the form fields to interact with the input values directly
                     idInput={idInput}
                     instructorNameInput={instructorNameInput}
                     typeInput={typeInput}

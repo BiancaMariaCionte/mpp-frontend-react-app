@@ -5,9 +5,9 @@ import { UserCard } from '../../features/Display Users/UserCard';
 import { Layout } from '../../components/layout/Layout';
 import { UsersContext } from '../../contexts/UsersContext';
 
-import './DisplayUsersPage.css';
+import './DisplayMovePage.css';
 
-export function DisplayUsersPage() {
+export function DisplayMovesPage() {
     document.title = 'ChoreoVerse';
 
     const usersContext = useContext(UsersContext)!;

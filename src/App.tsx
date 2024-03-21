@@ -4,16 +4,17 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { MoveClass } from './models/MoveClass';
 import { UsersContextProvider } from './contexts/UsersContext';
-import { DisplayUsersPage } from './pages/Display Data Page/DisplayUsersPage';
+import { DisplayMovesPage } from './pages/Display Data Page/DisplayMovePage';
 import { AddUserPage } from './pages/Add User Page/AddUserPage';
 import { EditUserPage } from './pages/Edit User Page/EditUserPage';
+import { Layout } from './components/layout/Layout';
 
 
 
 let demoClass1: MoveClass = new MoveClass(1,'Kathleen Carm','dance class - Bada Lee, Smoker','https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK','intermediate');
-let demoClass2: MoveClass = new MoveClass(2, 'LEIA','dance class - Aespa, Drama','https://youtu.be/A_bEGrPlAOo?si=bIksDl1w-5uevLIZ', 'beginner');
+let demoClass2: MoveClass = new MoveClass(2, 'LEIA','dance class - NewJeans, Super Shy','https://youtu.be/ChXfwacbkwI?si=NvDiEB0VY75_dzsp', 'advanced');
 let demoClass3: MoveClass = new MoveClass(3, 'Ellen','dance class - BlackPink, Shut Down','https://youtu.be/-Y_n2RxTXyc?si=Edj9QeiDGoEhGgRc', 'intermediate');
-let demoClass4: MoveClass = new MoveClass(4, 'LEIA','dance class- LESSERAFIM, Smart','https://youtu.be/v4EI6cNJvTs?si=ltQFVHtCQXOTObbl', 'beginner');
+let demoClass4: MoveClass = new MoveClass(4, 'LEIA','dance class- KAI, Rover','https://youtu.be/tsHebpUKrOA?si=iVLs6Sjj9_IOEY2n', 'intermediate');
 let demoClass5: MoveClass = new MoveClass(5, 'Aloha','dance class- LESSERAFIM, Easy','https://youtu.be/hG96IxiWnzs?si=OOdEmwAnjpuZqbt9', 'intermediate');
 let demoClass6: MoveClass = new MoveClass(6, 'Kathleen Carm','dance class- NMIX, Dash','https://youtu.be/1wpE4ZJWQ5Q?si=A0XOzsh7uV93TUxD', 'advanced');
 let demoClass7: MoveClass = new MoveClass(7, 'Kathleen Carm','dance class- Stray Kids, LALALALA','https://youtu.be/euaGRK-ZylM?si=ZWkG1b9vEU6IVXwK', 'intermediate');
@@ -51,9 +52,9 @@ function App() {
         <UsersContextProvider userContext={{ moveClasses, addMoveClass, removeMoveClass }}>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<DisplayUsersPage />} />
+                    <Route path='/' element={<DisplayMovesPage />}/>
                     <Route path='/addMoveClass' element={<AddUserPage />} />
-                    <Route path='/editMoveClass/:userId' element={<EditUserPage />} />
+                    <Route path='/editMoveClass/:userId' element={<EditUserPage/>} />
                 </Routes>
             </BrowserRouter>
         </UsersContextProvider>

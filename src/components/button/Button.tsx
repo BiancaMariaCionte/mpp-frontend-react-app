@@ -1,10 +1,12 @@
 import './Button.css';
 
 import { ButtonProps } from '../../types/ButtonProps.types'; 
+import MyButtonStyled from '../../styles/styles-button';
 
 export function Button(props: ButtonProps) {
     return (
-        <button
+        
+        <MyButtonStyled
             type={props.type}
             className={'button' + ' ' + (props.className ? props.className : '')}
             // the button always has the 'button' class applied to it, regardless of whether additional classes are provided through the className prop.
@@ -12,7 +14,7 @@ export function Button(props: ButtonProps) {
             data-testid='button-test-id'
         >
             {props.buttonMessage} {/* What is written on the button */}
-        </button>
+        </MyButtonStyled>
     );
 }
 
