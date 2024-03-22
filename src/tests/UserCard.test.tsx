@@ -37,10 +37,18 @@ test('test user card rendering', () => {
     //const userId = screen.getByText('1');
     const userInstructorName = screen.getByText('Kathleen Carm');
     const userType = screen.getByText('dance class - Bada Lee, Smoker');
-    const userYoutubeUrl = screen.getByText('https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK');
+   //const userYoutubeUrl = screen.getByText('https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK');
     const userDificulty = screen.getByText('intermediate');
 
-    
+    const userYoutubeUrl = screen.getByText((content, element) => {
+        // Ensure that element is not null
+        if (element && element.tagName.toLowerCase() === 'a') {
+            const href = element.getAttribute('href');
+            // Check if href matches the YouTube URL
+            return href === 'https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK';
+        }
+        return false;
+    });
     
 
     expect(userCard).toBeInTheDocument();
@@ -67,6 +75,7 @@ test('test user card remove method to be called', () => {
     fireEvent.click(removeButton);
     fireEvent.click(userCard);
 
+   // expect(mockRemoveMethod).toBeCalledWith(1);
     expect(mockRemoveMethod.mock.calls.length).toBe(0);
     expect(mockedUseNavigate).toBeCalledWith('/editMoveClass/1');
 });

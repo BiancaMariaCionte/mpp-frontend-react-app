@@ -39,13 +39,15 @@ export function UserCard({ givenUser, removeMethod }: UserCardPropsType) {
 
     return (
         <Box sx={{ width: 'calc(50% - 16px)', margin: '8px' }}>
-        <Card>
+        <Card data-testid="user-card">
+        <a href={givenUser.getYoutubeUrl()} target="_blank" rel="noopener noreferrer">
         <CardMedia
             component="img"
             alt="green iguana"
             height="310"
             image={thumbnailUrl || '/static/images/cards/contemplative-reptile.jpg'}
         />
+        </a>
         <CardContent>
             <Typography gutterBottom variant="h5" component="div">
                 {givenUser.getInstructorName()}
@@ -58,13 +60,13 @@ export function UserCard({ givenUser, removeMethod }: UserCardPropsType) {
             <Button size="small" onClick={() => navigate('/editMoveClass/' + givenUser.getId())}>
                 Edit
             </Button>
-            <Button size="small" onClick={handleRemoveButtonClick}>
+            <Button size="small" onClick={handleRemoveButtonClick} data-testid="remove-button">
                 Delete
             </Button>
         </CardActions>
         {/* Confirmation modal */}
         {showConfirmation && (
-            <div className="confirmation-modal">
+            <div className="confirmation-modal" data-testid="confirmation-modal">
                 <p>Are you sure you want to delete this dance class?</p>
                 <Button size="small" onClick={handleConfirmDelete} style={{ marginRight: '8px' }}>
                     Yes

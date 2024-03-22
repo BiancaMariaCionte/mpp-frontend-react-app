@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { expect, test, vi } from 'vitest';
-import { DisplayUsersPage } from '../pages/Display Data Page/DisplayMovePage';
+import { DisplayMovesPage } from '../pages/Display Data Page/DisplayMovePage';
 import { UsersContextProvider } from '../contexts/UsersContext';
 import { MoveClass } from '../models/MoveClass';
 
@@ -17,7 +17,7 @@ test('test display users page render', () => {
             }}
         >
             <BrowserRouter>
-                <DisplayUsersPage />
+                <DisplayMovesPage />
             </BrowserRouter>
         </UsersContextProvider>,
     );

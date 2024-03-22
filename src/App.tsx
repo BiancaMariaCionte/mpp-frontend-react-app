@@ -8,6 +8,7 @@ import { DisplayMovesPage } from './pages/Display Data Page/DisplayMovePage';
 import { AddUserPage } from './pages/Add User Page/AddUserPage';
 import { EditUserPage } from './pages/Edit User Page/EditUserPage';
 import { Layout } from './components/layout/Layout';
+import { InstructorsInfoPage } from './pages/Instructors Info Page/InstructorsInfoPage';
 
 
 
@@ -53,6 +54,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<DisplayMovesPage />}/>
+                    <Route path='/instructors' element={<InstructorsInfoPage/>}/>
                     <Route path='/addMoveClass' element={<AddUserPage />} />
                     <Route path='/editMoveClass/:userId' element={<EditUserPage/>} />
                 </Routes>

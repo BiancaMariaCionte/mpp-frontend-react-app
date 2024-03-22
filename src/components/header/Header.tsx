@@ -50,6 +50,34 @@ export function Header({ moveClasses }: { moveClasses: MoveClass[] }) {
     <AppBar position='static' sx={{ backgroundColor: 'transparent', boxShadow: 'none', borderBottom: '1px solid #ccc' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          onClick={handleOpenNavMenu}
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorElNav}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+          open={Boolean(anchorElNav)}
+          onClose={handleCloseNavMenu}
+        >
+          <MenuItem onClick={handleCloseNavMenu} component={Link} to="/">Dance classes</MenuItem>
+          <MenuItem onClick={handleCloseNavMenu} component={Link} to="/instructors">Instructors</MenuItem>
+        </Menu>
           <StarBorderIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -65,7 +93,9 @@ export function Header({ moveClasses }: { moveClasses: MoveClass[] }) {
               color: 'inherit',
               textDecoration: 'none',
               fontSize: '1.7rem'
+            
             }}
+            data-testid="header-test-id"
           >
             CHOREOVERSE
           </Typography>
