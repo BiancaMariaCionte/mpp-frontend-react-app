@@ -1,12 +1,22 @@
+// export default interface MoveClass{
+//     id:number;
+//     instructorName:string;
+//     type:string;
+//     youtubeUrl:string;
+//     dificulty:string;
+
+// }
+
+
 export class MoveClass{
     [x: string]: any;
     private id: number;
     private instructorName: string;
     private type: string; //danceClass or fitnessClass
     private youtubeUrl: string;
-    private dificulty: string;
+    private dificulty: number;
 
-    public constructor(id: number, instructorName: string, type: string, youtubeUrl: string, dificulty: string )
+    public constructor(id: number, instructorName: string, type: string, youtubeUrl: string, dificulty: number )
     {
         this.id = id;
         this.instructorName=instructorName;
@@ -31,7 +41,7 @@ export class MoveClass{
         return this.youtubeUrl;
     }
 
-    public getDificulty(): string{
+    public getDificulty(): number{
         return this.dificulty;
     }
 
@@ -51,7 +61,7 @@ export class MoveClass{
         this.youtubeUrl=newYoutubeUrl;
     }
 
-    public setDificulty(newDificulty: string){
+    public setDificulty(newDificulty: number){
         this.dificulty=newDificulty;
     }
 }

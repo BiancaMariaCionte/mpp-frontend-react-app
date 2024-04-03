@@ -31,7 +31,7 @@ function handleOnClick(
         userInstructorName: string = instructorNameInput.current.value,
         userType: string = typeInput.current.value,
         userYoutubeUrl: string = youtubeUrlInput.current.value,
-        userDificulty: string = dificultyInput.current.value;
+        userDificulty: number = parseInt(dificultyInput.current.value);
 
     return new MoveClass(userId, userInstructorName, userType, userYoutubeUrl, userDificulty);
 }
@@ -84,3 +84,5 @@ export function EditUserPage() {
         </Layout>
     );
 }
+
+export default EditUserPage

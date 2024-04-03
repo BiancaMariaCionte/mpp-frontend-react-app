@@ -18,9 +18,17 @@ export function UserCard({ givenUser, removeMethod }: UserCardPropsType) {
     }, [givenUser.getYoutubeUrl()]);
 
     // const handleCardOnClick = () => {
-    //     navigate('/editMoveClass/' + givenUser.getId());
+    //     navigate('/moveClass/' + givenUser.getId());
     // };
 
+    const handleCardOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        // Check if the click target is one of the buttons
+        const target = e.target as HTMLElement;
+        if (target.tagName !== 'BUTTON') {
+            navigate(`/moveClass/${givenUser.getId()}`); // Redirect to move class details page
+        }
+    };
+    
     const handleRemoveButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.stopPropagation();
         setShowConfirmation(true);
@@ -39,7 +47,7 @@ export function UserCard({ givenUser, removeMethod }: UserCardPropsType) {
 
     return (
         <Box sx={{ width: 'calc(50% - 16px)', margin: '8px' }}>
-        <Card data-testid="user-card">
+        <Card data-testid="user-card" onClick={handleCardOnClick}>
         <a href={givenUser.getYoutubeUrl()} target="_blank" rel="noopener noreferrer">
         <CardMedia
             component="img"
@@ -54,6 +62,9 @@ export function UserCard({ givenUser, removeMethod }: UserCardPropsType) {
             </Typography>
             <Typography variant="body2" color="text.secondary">
                 {givenUser.getType()}
+                </Typography>
+            <Typography variant="body2" color="text.secondary">
+                {givenUser.getDificulty()}
             </Typography>
         </CardContent>
         <CardActions>

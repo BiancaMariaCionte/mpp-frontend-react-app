@@ -11,7 +11,7 @@ test('test display users page render', () => {
     render(
         <UsersContextProvider
             userContext={{
-                moveClasses: [new MoveClass(1,'Kathleen Carm','dance class - Bada Lee, Smoker','https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK','intermediate')],
+                moveClasses: [new MoveClass(1,'Kathleen Carm','dance class - Bada Lee, Smoker','https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK',7)],
                 addMoveClass: vi.fn(),
                 removeMoveClass: vi.fn(),
             }}

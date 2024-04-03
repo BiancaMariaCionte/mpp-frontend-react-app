@@ -3,12 +3,13 @@ import { MoveClass } from "../models/MoveClass";
 import { ReactNode } from "react";
 
 export type UsersContextType = {
-    users: MoveClass[];
-    addUser: (user: MoveClass) => void;
-    removeUser: (userId: number) => void;
+    moveClasses: MoveClass[];
+    addMoveClass: (user: MoveClass) => void;
+    removeMoveClass: (userId: number) => void;
+
 };
 
-export type ProviderType = {
+export type UsersContextProviderType  = {
     userContext: UsersContextType;
     children: ReactNode;
 };

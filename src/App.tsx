@@ -1,29 +1,47 @@
 import './App.css';
 
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
+import { Suspense, useEffect, useState } from 'react';
 import { MoveClass } from './models/MoveClass';
 import { UsersContextProvider } from './contexts/UsersContext';
-import { DisplayMovesPage } from './pages/Display Data Page/DisplayMovePage';
-import { AddUserPage } from './pages/Add User Page/AddUserPage';
-import { EditUserPage } from './pages/Edit User Page/EditUserPage';
+//import { DisplayMovesPage } from './pages/Display Data Page/DisplayMovePage';
+//import { AddUserPage } from './pages/Add User Page/AddUserPage';
+//import { EditUserPage } from './pages/Edit User Page/EditUserPage';
 import { Layout } from './components/layout/Layout';
 import { InstructorsInfoPage } from './pages/Instructors Info Page/InstructorsInfoPage';
+import { DisplayIndividualMovesPage } from './pages/Display Data Page/DisplayIndividualClass';
+import React from 'react';
+
+import LoadingPage from './pages/Loading Page/LoadingPage';
+import ChartPage from './pages/Chart Page/ChartPage';
+import { PagingContextProvider } from './contexts/PagingContext';
+
+
+const DisplayUsersPage = React.lazy(() => import('./pages/Display Data Page/DisplayMovePage'));
+const AddUserPage = React.lazy(() => import('./pages/Add User Page/AddUserPage'));
+const EditUserPage = React.lazy(() => import('./pages/Edit User Page/EditUserPage'));
 
 
 
-let demoClass1: MoveClass = new MoveClass(1,'Kathleen Carm','dance class - Bada Lee, Smoker','https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK','intermediate');
-let demoClass2: MoveClass = new MoveClass(2, 'LEIA','dance class - NewJeans, Super Shy','https://youtu.be/ChXfwacbkwI?si=NvDiEB0VY75_dzsp', 'advanced');
-let demoClass3: MoveClass = new MoveClass(3, 'Ellen','dance class - BlackPink, Shut Down','https://youtu.be/-Y_n2RxTXyc?si=Edj9QeiDGoEhGgRc', 'intermediate');
-let demoClass4: MoveClass = new MoveClass(4, 'LEIA','dance class- KAI, Rover','https://youtu.be/tsHebpUKrOA?si=iVLs6Sjj9_IOEY2n', 'intermediate');
-let demoClass5: MoveClass = new MoveClass(5, 'Aloha','dance class- LESSERAFIM, Easy','https://youtu.be/hG96IxiWnzs?si=OOdEmwAnjpuZqbt9', 'intermediate');
-let demoClass6: MoveClass = new MoveClass(6, 'Kathleen Carm','dance class- NMIX, Dash','https://youtu.be/1wpE4ZJWQ5Q?si=A0XOzsh7uV93TUxD', 'advanced');
-let demoClass7: MoveClass = new MoveClass(7, 'Kathleen Carm','dance class- Stray Kids, LALALALA','https://youtu.be/euaGRK-ZylM?si=ZWkG1b9vEU6IVXwK', 'intermediate');
-let demoClass8: MoveClass = new MoveClass(8, 'Kathleen Carm','dance class- TXT, Chasing that feeling','https://youtu.be/KpM2r-OYWWQ?si=a_RNIogtcb4MnE56', 'intermediate');
+let demoClass1: MoveClass = new MoveClass(1,'Kathleen Carm','dance class - Bada Lee, Smoker','https://youtu.be/LAPhcK-38aY?si=YraOLZnp0Ol2g7oK',7);
+let demoClass2: MoveClass = new MoveClass(2, 'LEIA','dance class - NewJeans, Super Shy','https://youtu.be/ChXfwacbkwI?si=NvDiEB0VY75_dzsp', 7);
+let demoClass3: MoveClass = new MoveClass(3, 'Ellen','dance class - BlackPink, Shut Down','https://youtu.be/-Y_n2RxTXyc?si=Edj9QeiDGoEhGgRc', 8);
+let demoClass4: MoveClass = new MoveClass(4, 'LEIA','dance class- KAI, Rover','https://youtu.be/tsHebpUKrOA?si=iVLs6Sjj9_IOEY2n', 8);
+let demoClass5: MoveClass = new MoveClass(5, 'Aloha','dance class- LESSERAFIM, Easy','https://youtu.be/hG96IxiWnzs?si=OOdEmwAnjpuZqbt9', 6);
+let demoClass6: MoveClass = new MoveClass(6, 'Kathleen Carm','dance class- NMIX, Dash','https://youtu.be/1wpE4ZJWQ5Q?si=A0XOzsh7uV93TUxD', 9);
+let demoClass7: MoveClass = new MoveClass(7, 'Kathleen Carm','dance class- Stray Kids, LALALALA','https://youtu.be/euaGRK-ZylM?si=ZWkG1b9vEU6IVXwK', 5);
+let demoClass8: MoveClass = new MoveClass(8, 'Kathleen Carm','dance class- TXT, Chasing that feeling','https://youtu.be/KpM2r-OYWWQ?si=a_RNIogtcb4MnE56', 5);
 
+
+
+const pageSize = 4;
 
 function App() {
     let [moveClasses, setMoveClasses] = useState<MoveClass[]>([demoClass1,demoClass2,demoClass3,demoClass4,demoClass5,demoClass6,demoClass7,demoClass8]);
+   // const [filteredMoveClasses, setFilteredMoveClasses] = useState<MoveClass[]>([]);
+
+    let [currentUsers, setCurrentUsers] = useState<MoveClass[]>(moveClasses.slice(0, pageSize));
+    let [currentPage, setCurrentPage] = useState<number>(1);
 
     const addMoveClass = (newMoveClass: MoveClass) => {
         setMoveClasses((prevState: MoveClass[]) => [...prevState, newMoveClass]);
@@ -45,20 +63,78 @@ function App() {
         // This ensures that the original users array remains unchanged
     };
 
-    useEffect(() => { //useEffect hook <- logs the current state of users to the console whenever the component re-renders
-        console.log(moveClasses);
-    });
+
+
+//   const[sortAscending, updateSortAscending] =useState<boolean>();
+
+//   const sortOnClick = () => {
+//     console.log("Ascending " + sortAscending);
+//     console.log("Before:")
+//     let copy = [...moveClasses];
+//     copy.forEach((moveClass: MoveClass) => console.log(moveClass.getInstructorName()));
+//     if(sortAscending === true)
+//     {
+//         copy.sort((n1,n2) => n1.getInstructorName().localeCompare(n2.getInstructorName()));
+//         updateSortAscending(false);
+//     }
+//     else
+//     {
+//         copy.sort((n1,n2) =>  n1.getInstructorName().localeCompare(n2.getInstructorName()));
+//         updateSortAscending(true);
+//     }
+//     setMoveClasses(copy);
+//     console.log("After:")
+//     copy.forEach((moveClass: MoveClass) => console.log(moveClass.getInstructorName()));}
+
+
+// const filterMoveClass = (input: string) => {
+//     const filteredData = moveClasses.filter((moveClass) => {
+//         if (input === '') {
+//             return true;
+//         } else {
+//             return moveClass.getInstructorName().toLowerCase().includes(input.toLowerCase());
+//         }
+//     });
+//     setFilteredMoveClasses(filteredData);
+// };
+
+// useEffect(() => {
+//     console.log(moveClasses);
+// });
+
+useEffect(() => {
+    console.log(moveClasses);
+}, []);
+
 
     return (
         <UsersContextProvider userContext={{ moveClasses, addMoveClass, removeMoveClass }}>
+         <PagingContextProvider pagingContext={{ currentUsers, setCurrentUsers, currentPage, setCurrentPage, pageSize: pageSize }}>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<DisplayMovesPage />}/>
+                <Route path='/loading' element={<LoadingPage />} />
+                    <Route path='/'
+                     element={ <Suspense fallback={<LoadingPage />}>
+                     <DisplayUsersPage />
+                 </Suspense>}> 
+                    </Route>
+                   
                     <Route path='/instructors' element={<InstructorsInfoPage/>}/>
-                    <Route path='/addMoveClass' element={<AddUserPage />} />
-                    <Route path='/editMoveClass/:userId' element={<EditUserPage/>} />
+                
+                    <Route path='/moveClass/:userId' element={<DisplayIndividualMovesPage/>}/>
+                    <Route path='/addMoveClass'
+                     element={ <Suspense fallback={<LoadingPage />}>
+                     <AddUserPage />
+                 </Suspense>} />
+                    <Route path='/editMoveClass/:userId' 
+                    element={ <Suspense fallback={<LoadingPage />}>
+                    <EditUserPage />
+                </Suspense>} />
+                <Route path='/chart' element={<ChartPage />} />
+                <Route path='*' element={<Navigate to={'/'} />} />
                 </Routes>
             </BrowserRouter>
+            </PagingContextProvider>
         </UsersContextProvider>
     );
 }
