@@ -16,8 +16,13 @@ export class MoveClass{
     private youtubeUrl: string;
     private dificulty: number;
 
+    private static lastUsedId: number = 0;
+
     public constructor(id: number, instructorName: string, type: string, youtubeUrl: string, dificulty: number )
     {
+
+        MoveClass.lastUsedId +=1;
+        
         this.id = id;
         this.instructorName=instructorName;
         this.type = type;
@@ -41,7 +46,7 @@ export class MoveClass{
         return this.youtubeUrl;
     }
 
-    public getDificulty(): number{
+    public getDifficulty(): number{
         return this.dificulty;
     }
 
@@ -61,7 +66,7 @@ export class MoveClass{
         this.youtubeUrl=newYoutubeUrl;
     }
 
-    public setDificulty(newDificulty: number){
+    public setDifficulty(newDificulty: number){
         this.dificulty=newDificulty;
     }
 }

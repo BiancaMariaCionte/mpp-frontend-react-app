@@ -1,6 +1,6 @@
 import { MoveClass } from "../models/MoveClass"; 
 
 export type UserCardPropsType = {
-    givenUser: MoveClass;
+    givenUser: any;
     removeMethod: (userId: number) => void;
 };

@@ -3,6 +3,8 @@ import { FormEntry } from './FormEntry';
 
 import './UserForm.css';
 
+
+
 export function UserForm(props: UserFormType) {
     const formEntries = [
         { label: 'ID', ref: props.idInput, placeHolder: 'ID', defaultValue: '', disabled: false },
@@ -25,7 +27,7 @@ export function UserForm(props: UserFormType) {
         formEntries[1].defaultValue = props.givenUser.getInstructorName();
         formEntries[2].defaultValue = props.givenUser.getType();
         formEntries[3].defaultValue = props.givenUser.getYoutubeUrl();
-        formEntries[4].defaultValue = props.givenUser.getDificulty();
+        formEntries[4].defaultValue = props.givenUser.getDificulty().toString();
     }
 
     return (

@@ -1,29 +1,54 @@
-import { useContext, useEffect, useState } from 'react';
-import { MoveClass } from '../../models/MoveClass'; 
-import { UserCard } from '../../features/Display Users/UserCard';
-import { Layout } from '../../components/layout/Layout';
-import { UsersContext } from '../../contexts/UsersContext';
+import {useContext, useEffect, useState} from 'react';
+import {Button} from '../../components/button/Button';
+import {Layout} from '../../components/layout/Layout';
+import {PagingContext} from '../../contexts/PagingContext';
+import {UsersContext} from '../../contexts/UsersContext';
+import {UserCard} from '../../features/Display Users/UserCard';
 import './DisplayMovePage.css';
-import { PagingContext } from '../../contexts/PagingContext';
-import { Button } from '../../components/button/Button';
 
 export function DisplayMovesPage() {
     document.title = 'ChoreoVerse';
-    
+
+    let [isAscending, setIsAscending] = useState<boolean>(true);
+    let [showNext, setShowNext] = useState<boolean>(true);
+    let [usersCount, setUsersCount] = useState<number>(0);
+    let [isLoading, setIsLoading] = useState<boolean>(true);
+
     const usersContext = useContext(UsersContext)!;
     const pagingContext = useContext(PagingContext)!;
-    const moveClassesArray: MoveClass[] = usersContext.moveClasses;
+    const moveClassesArray: any[] = usersContext.moveClasses;
     const removeMethod = usersContext.removeMoveClass;
-    const { currentUsers, setCurrentPage, setCurrentUsers, currentPage, pageSize } = pagingContext;
-    const [isAscending, setIsAscending] = useState<boolean>(true);
-    const [showNext, setShowNext] = useState<boolean>(true);
+    const {
+        currentUsers,
+        setCurrentPage,
+        setCurrentUsers,
+        currentPage,
+        pageSize,
+    } = pagingContext;
+
+    // // Sorting logic
+    // useEffect(() => {
+    //     const sortedUsers = [...moveClassesArray];
+    //     sortedUsers.sort(
+    //         (firstUser, secondUser) =>
+    //             firstUser.getDificulty() - secondUser.getDificulty(),
+    //     );
+    //     if (!isAscending) sortedUsers.reverse();
+    //     setCurrentUsers(sortedUsers.slice(0, currentPage * pageSize)); // Update current users after sorting
+    // }, [isAscending, moveClassesArray, currentPage, pageSize]);
 
     // Sorting logic
     useEffect(() => {
-        const sortedUsers = [...moveClassesArray];
-        sortedUsers.sort((firstUser, secondUser) => firstUser.getDificulty() - secondUser.getDificulty());
-        if (!isAscending) sortedUsers.reverse();
-        setCurrentUsers(sortedUsers.slice(0, currentPage * pageSize)); // Update current users after sorting
+        const sortedMoves = [...moveClassesArray];
+        console.log('sorted moves', sortedMoves);
+
+        sortedMoves.sort((firstMove, secondMove) => {
+            // Assuming 'difficulty' is the property to sort by
+            return isAscending
+                ? firstMove.difficulty - secondMove.difficulty
+                : secondMove.difficulty - firstMove.difficulty;
+        });
+        setCurrentUsers(sortedMoves.slice(0, currentPage * pageSize)); // Update current users after sorting
     }, [isAscending, moveClassesArray, currentPage, pageSize]);
 
     // Pagination logic
@@ -33,10 +58,13 @@ export function DisplayMovesPage() {
         } else {
             setShowNext(true);
         }
-    }, [currentPage, moveClassesArray.length, pageSize]);
+    }, [currentPage, moveClassesArray, pageSize]);
 
     const handleOnClick = () => {
-        const nextPage = moveClassesArray.slice(currentPage * pageSize, (currentPage + 1) * pageSize);
+        const nextPage = moveClassesArray.slice(
+            currentPage * pageSize,
+            (currentPage + 1) * pageSize,
+        );
         setCurrentUsers([...currentUsers, ...nextPage]);
         setCurrentPage(currentPage + 1);
     };
@@ -44,23 +72,37 @@ export function DisplayMovesPage() {
     return (
         <Layout>
             <div className='main-page-container'>
-                <Button type='button' onClick={() => setIsAscending(!isAscending)} buttonMessage={'Ascending/Descending'} />
+                <Button
+                    type='button'
+                    onClick={() => setIsAscending(!isAscending)}
+                    buttonMessage={'Ascending/Descending'}
+                />
                 <div className='users-list' data-testid='users-list'>
                     {currentUsers.map((moveClss) => (
-                        <UserCard givenUser={moveClss} removeMethod={removeMethod} key={moveClss.getId()} />
+                        <UserCard
+                            givenUser={moveClss}
+                            removeMethod={removeMethod}
+                            key={moveClss._id}
+                        />
                     ))}
                 </div>
 
                 {showNext ? (
                     <>
                         <div>
-                            {currentPage * pageSize} out of {moveClassesArray.length}
+                            {currentPage * pageSize} out of{' '}
+                            {moveClassesArray?.length}
                         </div>
-                        <Button onClick={handleOnClick} type='button' buttonMessage='Show more' />
+                        <Button
+                            onClick={handleOnClick}
+                            type='button'
+                            buttonMessage='Show more'
+                        />
                     </>
                 ) : (
                     <div>
-                        {moveClassesArray.length} out of {moveClassesArray.length}
+                        {moveClassesArray?.length} out of{' '}
+                        {moveClassesArray?.length}
                     </div>
                 )}
             </div>
@@ -70,10 +112,8 @@ export function DisplayMovesPage() {
 
 export default DisplayMovesPage;
 
-
-
 // // import React, { useContext, useEffect, useState } from 'react';
-// // import { MoveClass } from '../../models/MoveClass'; 
+// // import { MoveClass } from '../../models/MoveClass';
 // // import { UserCard } from '../../features/Display Users/UserCard';
 // // import { Layout } from '../../components/layout/Layout';
 // // import { UsersContext } from '../../contexts/UsersContext';
@@ -98,7 +138,7 @@ export default DisplayMovesPage;
 // //         const sortedUsers = [...currentUsers];
 // //         sortedUsers.sort((firstUser, secondUser) => firstUser.getDificulty() - secondUser.getDificulty());
 // //         if (!isAscending) sortedUsers.reverse();
-// //         setCurrentUsers(sortedUsers); 
+// //         setCurrentUsers(sortedUsers);
 // //     }, [isAscending]);
 
 // //     // Pagination logic
@@ -144,10 +184,9 @@ export default DisplayMovesPage;
 
 // // export default DisplayMovesPage;
 
-
 // import { useContext, useEffect, useState } from 'react';
 
-// import { MoveClass } from '../../models/MoveClass'; 
+// import { MoveClass } from '../../models/MoveClass';
 // import { UserCard } from '../../features/Display Users/UserCard';
 // import { Layout } from '../../components/layout/Layout';
 // import { UsersContext } from '../../contexts/UsersContext';
@@ -159,12 +198,12 @@ export default DisplayMovesPage;
 
 // export function DisplayMovesPage() {
 //     document.title = 'ChoreoVerse';
-    
+
 //     const usersContext = useContext(UsersContext)!;
 //     const pagingContext = useContext(PagingContext)!;
 
 //     const moveClassesArray: MoveClass[] = usersContext.moveClasses;
-  
+
 //     const removeMethod = usersContext.removeMoveClass;
 
 //     const { currentUsers, setCurrentPage, setCurrentUsers, currentPage, pageSize } = pagingContext;
@@ -172,19 +211,13 @@ export default DisplayMovesPage;
 //     const [isAscending, setIsAscending] = useState<boolean>(true);
 //     const [showNext, setShowNext] = useState<boolean>(true);
 
-
-  
 //     //he ! operator asserts that the value returned by useContext(UsersContext) is not null or undefined
-
-  
 
 //     // let currentUsers: MoveClass[] = pagingContext.currentUsers;
 //     // let setCurrentPage = pagingContext.setCurrentPage;
 //     // let setCurrentUsers = pagingContext.setCurrentUsers;
 //     // let currentPage = pagingContext.currentPage;
 //     // let pageSize = pagingContext.pageSize;
-
-
 
 //      // sorting
 //      useEffect(() => {
@@ -194,7 +227,7 @@ export default DisplayMovesPage;
 
 //         if (!isAscending) sortedUsers.reverse();
 //         console.log("After sorting:", sortedUsers);
-//         setCurrentUsers(sortedUsers); 
+//         setCurrentUsers(sortedUsers);
 //     }, [isAscending]);
 
 //       //  initial setup of current users
@@ -236,7 +269,6 @@ export default DisplayMovesPage;
 //             setShowNext(true);
 //         }
 //     }, [currentPage, moveClassesArray.length, pageSize]);
-
 
 //     return (
 //         <Layout>
